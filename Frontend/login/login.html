@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/projectP/Frontend/Style/style.css" />
+
+		<style>
+			.login-container {
+				text-align: center;
+				border: 1px solid black;
+			}
+
+			#login-form input[type='text'],
+			#login-form input[type='password'] {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 10px;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+			}
+
+			#loginbutton {
+				width: 100%;
+				padding: 10px;
+				background-color: #333;
+				color: #fff;
+				border: none;
+				border-radius: 3px;
+				cursor: pointer;
+			}
+
+			#loginbutton:hover {
+				background-color: #555;
+			}
+
+			#btn {
+				text-align: center;
+				margin-top: 20px;
+			}
+
+			#btn .newPage {
+				text-decoration: none;
+				color: #333;
+				margin-right: 10px;
+			}
+
+			#btn .newPage:hover {
+				text-decoration: underline;
+			}
+
+			/* Responsive Styles */
+
+			@media screen and (max-width: 600px) {
+				nav {
+					flex-direction: column;
+				}
+
+				nav #name {
+					margin-top: 10px;
+				}
+			}
+		</style>
+
+		<title>User Login</title>
+	</head>
+	<body>
+		<nav>
+			<div>
+				<a href="/Frontend/index.html"
+					><img src="/Frontend/Image/logo.png" alt="" id="logo"
+				/></a>
+			</div>
+
+			<div id="name"><h1>Customer Help Desk</h1></div>
+
+			<div>
+				<ul id="list">
+					<!-- <li><a href="/index.html">Home</a></li> -->
+					<li><a href="/Frontend/about.html">About</a></li>
+					<!-- <li><a href="#">Services</a></li> -->
+					<!-- <li><a href="#">Contact</a></li> -->
+				</ul>
+			</div>
+		</nav>
+
+		<div id="box1">
+			<div class="login-container">
+				<form id="login-form">
+					<input type="text" id="username" placeholder="Username" required />
+					<br />
+					<input
+						type="password"
+						id="password"
+						placeholder="Password"
+						required
+					/>
+					<br />
+					<button type="submit" id="loginbutton">Login</button>
+					<br />
+				</form>
+			</div>
+
+			<div id="btn">
+				<a href="/Frontend/register.html" class="newPage">Register Customer</a>
+
+				<a href="/Frontend/forgotten.html" class="newPage"
+					>Forgotten password?</a
+				>
+			</div>
+		</div>
+	</body>
+	<script>
+		console.log('JavaScript file loaded.')
+		document
+			.getElementById('login-form')
+			.addEventListener('submit', async function (event) {
+				console.log('Form submit event triggered.')
+				event.preventDefault()
+
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+
+				const data = {
+					username: username,
+					password: password,
+				}
+
+				console.log('Before fetch:', data)
+
+				try {
+					const response = await fetch('http://localhost:8080/operatorlogin', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(data),
+					})
+
+					console.log('After fetch:', response)
+
+					if (!response.ok) {
+						throw new Error('Login failed.')
+					}
+
+					const result = await response.json()
+					console.log('Response data:', result)
+				} catch (error) {
+					console.error('Error:', error)
+				}
+			})
+	</script>
+</html>

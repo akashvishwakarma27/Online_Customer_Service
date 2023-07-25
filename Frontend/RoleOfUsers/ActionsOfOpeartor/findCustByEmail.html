@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./findCustByEmail.css" />
+		<title>FindCustomerByEmail</title>
+	</head>
+	<body>
+		<!-- navbar -->
+		<nav>
+			<div>
+				<a href="/Frontend/index.html"
+					><img src="/Frontend/Image/logo.png" alt="" id="logo"
+				/></a>
+			</div>
+			<div id="name"><h1>Customer Help Desk</h1></div>
+			<div>
+				<ul id="list">
+					<li><a href="/Frontend/RoleOfUsers/operatorRole.html">Back</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Menu -->
+
+		<div id="menu" class="menu">
+			<div>
+				<h2>Enter Customer's Email Id :</h2>
+			</div>
+			<div>
+				<form action="#">
+					<label for="email">Email<span>*</span> :</label>
+					<input id="email" type="email" placeholder="Enter Email" />
+				</form>
+				<a href="#"><button id="find">Find</button></a>
+			</div>
+		</div>
+		<div id="resultant_data"></div>
+	</body>
+	<script>
+		// document.getElementById("find").addEventListener("click",function(event){
+		//     let custId=+document.getElementById("custId").value;
+		//     console.log(custId);
+		// })
+
+		let find = document.getElementById('find')
+		find.addEventListener('click', function (event) {
+			event.preventDefault()
+			let email = +document.getElementById('email').value
+
+			if (email != '') {
+				fetch(`http://localhost:8080/operators/customersemail/${email}`)
+					.then((response) => response.json())
+					.then((data) => {
+						if (data.customerId != undefined) {
+							renderCards(data)
+						} else {
+							errorMessage(data)
+						}
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+			} else {
+				alert('Input boxes ared mandatory')
+			}
+		})
+
+		function renderCards(customer) {
+			let res_div = document.getElementById('resultant_data')
+			res_div.innerHTML = ''
+
+			res_div.innerHTML += `
+              <h1>Output :-</h1>
+              <div class="card">
+                <h3>CustomerId : ${customer.customerId}</h3>
+                <h3>CustomerName : ${
+									customer.firstName + ' ' + customer.lastName
+								}</h3>
+                <h3>Customer MobileNo : ${customer.mobile}</h3>
+                <h3>Customer City : ${customer.city}</h3>
+                <h3>Customer EmailId : ${customer.email}</h3> 
+              </div>  
+            `
+		}
+
+		function errorMessage(customer) {
+			console.log(customer)
+			let res_div = document.getElementById('resultant_data')
+			res_div.innerHTML = ''
+
+			res_div.innerHTML += `
+              <div class="card">
+                <h3>timestamp : ${customer.timestamp}</h3>
+                <h3>details : ${customer.details}</h3>
+                <h3>message : ${customer.message}</h3>
+              </div>  
+            `
+		}
+	</script>
+</html>

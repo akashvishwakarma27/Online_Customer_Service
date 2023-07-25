@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./addDepartment.css" />
+		<title>FindOperatorById</title>
+	</head>
+	<body>
+		<!-- navbar -->
+		<nav>
+			<div>
+				<a href="/Frontend/index.html"
+					><img src="/Frontend/Image/logo.png" alt="" id="logo"
+				/></a>
+			</div>
+			<div id="name"><h1>Customer Help Desk</h1></div>
+			<div>
+				<ul id="list">
+					<li><a href="/Frontend/RoleOfUsers/adminRole.html">Back</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Menu -->
+
+		<div id="menu" class="menu">
+			<div>
+				<h2>Enter Operator Id :</h2>
+			</div>
+			<div>
+				<form action="#">
+					<label for="optId">Operator Id<span>*</span> :</label>
+					<input id="optId" type="text" placeholder="Enter Operator Id" />
+				</form>
+				<a href="#"><button id="find">Find</button></a>
+			</div>
+		</div>
+		<div id="resultant_data"></div>
+	</body>
+	<script>
+		// document.getElementById("find").addEventListener("click",function(event){
+		//     let custId=+document.getElementById("custId").value;
+		//     console.log(custId);
+		// })
+
+		let find = document.getElementById('find')
+		find.addEventListener('click', function (event) {
+			event.preventDefault()
+			let optId = +document.getElementById('optId').value
+
+			if (optId !== 0) {
+				fetch(`http://localhost:8080/operator/get/${optId}`)
+					.then((response) => response.json())
+					.then((data) => {
+						console.log(data)
+						if (data.operatorId === undefined) {
+							errorMessage(data)
+						} else {
+							renderCards(data)
+						}
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+			} else {
+				alert('Input boxes are mandatory')
+			}
+		})
+
+		function renderCards(data) {
+			let res_div = document.getElementById('resultant_data')
+			res_div.innerHTML = ''
+			res_div.innerHTML += `
+        <h1>Output :-</h1>
+        `
+			res_div.innerHTML += `
+              <div class="card">
+                <h3>OperatorId : ${data.operatorId}</h3>
+                <h3>OperatorName : ${data.firstName + ' ' + data.lastName}</h3>
+                <h3>OperatorEmail : ${data.email}</h3>
+                <h3>OperatorMobile : ${data.mobile}</h3>
+                <h3>OperatorCity : ${data.city}</h3>
+              </div>  
+            `
+		}
+
+		function errorMessage(data) {
+			console.log(data)
+			let res_div = document.getElementById('resultant_data')
+			res_div.innerHTML = ''
+			res_div.innerHTML += `
+        <h1>Output :-</h1>
+        `
+
+			res_div.innerHTML += `
+              <div class="card">
+                <h3>timestamp : ${data.timestamp}</h3>
+                <h3>details : ${data.details}</h3>
+                <h3>message : ${data.message}</h3>
+              </div>  
+            `
+		}
+	</script>
+</html>

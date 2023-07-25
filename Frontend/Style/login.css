@@ -1,0 +1,54 @@
+.login-container {
+	text-align: center;
+	border: 1px solid black;
+}
+
+#login-form input[type='text'],
+#login-form input[type='password'] {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+#loginbutton {
+	width: 100%;
+	padding: 10px;
+	background-color: #333;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#loginbutton:hover {
+	background-color: #555;
+}
+
+#btn {
+	text-align: center;
+	margin-top: 20px;
+}
+
+#btn .newPage {
+	text-decoration: none;
+	color: #333;
+	margin-right: 10px;
+}
+
+#btn .newPage:hover {
+	text-decoration: underline;
+}
+
+/* Responsive Styles */
+
+@media screen and (max-width: 600px) {
+	nav {
+		flex-direction: column;
+	}
+
+	nav #name {
+		margin-top: 10px;
+	}
+}
