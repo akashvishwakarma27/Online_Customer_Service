@@ -56,15 +56,6 @@ This project is an online customer service center built with Spring Boot. It pro
 
 
 
-
-## Installation & Run
-```bash
-# To run this project locally:
-
-# Clone the repository and navigate to the directory
-git clone https://github.com/priyankasanodiya14/deluxe-change-1738.git
-cd deluxe-change-1738
-
 # Configure your MySQL credentials in application.properties
 # located in src/main/resources directory
 # Replace with your actual MySQL credentials
@@ -90,14 +81,6 @@ https://localhost:8080/
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
-
-## Collaborators
-
-- [priyanka sanodiya](https://github.com/priyankasanodiya14) (Team Lead)
-- [Satyanand Shrivastava](https://github.com/Satya2008)
-- [Aviraj Sawant](https://github.com/Sawantaviraj2) 
-- [Arfat Siddiqui](https://github.com/SiddiquiArfat) 
-- [Akash Vishwakarma](https://github.com/akashvishwakarma27)
 
 
 
